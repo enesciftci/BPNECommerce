@@ -9,11 +9,13 @@
     <ItemGroup>
         <PackageReference Include="MediatR" Version="13.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.15"/>
+        <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\BPN.ECommerce.Application\BPN.ECommerce.Application.csproj" />
+      <ProjectReference Include="..\BPN.ECommerce.Infrastructure\BPN.ECommerce.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
