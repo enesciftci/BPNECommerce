@@ -1,17 +1,73 @@
-using BPN.ECommerce.Application.Products.Queries.GetProducts;
+using BPN.ECommerce.Application.Orders.Exceptions;
+using BPN.ECommerce.Application.Orders.Inputs;
+using BPN.ECommerce.Application.Orders.Mapper;
+using BPN.ECommerce.Application.Products.Exceptions;
+using BPN.ECommerce.Application.Services.Balance;
+using BPN.ECommerce.Domain.Aggregates.Orders.Entities;
+using BPN.ECommerce.Domain.Aggregates.Orders.ValueObjects;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace BPN.ECommerce.Application.Orders.Commands.CreateOrder;
 
-public sealed class CreateOrderCommand : IRequest
+public sealed class CreateOrderCommand(CreateOrderInput input) : IRequest
 {
-
+    public CreateOrderInput Input { get; set; } = input;
 }
 
-public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand>
+public sealed class CreateOrderCommandHandler(
+    IBalanceServiceClient balanceServiceClient,
+    IOrderRepository orderRepository,
+    IUnitOfWork unitOfWork,
+    IOrderMapper orderMapper,
+    ILogger<CreateOrderCommandHandler> logger)
+    : IRequestHandler<CreateOrderCommand>
 {
     public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var orderItems = new List<OrderItem>();
+        var orderId = Guid.NewGuid().ToString();
+        decimal totalAmount = decimal.Zero;
+        
+        foreach (var orderLine in request.Input.Items)
+        {
+            var products = await balanceServiceClient.GetProducts();
+            
+            var selectedProduct = products.Data.FirstOrDefault(p => p.Id == orderLine.ProductId);
+            
+            if (selectedProduct == null || selectedProduct.Stock < orderLine.Quantity)
+                throw new ProductNotFoundException("Product not found or stock is invalid");
+            
+            orderItems.Add(OrderItem.Create(orderId,selectedProduct.Id,orderLine.Quantity, selectedProduct.Price));
+          
+            totalAmount += orderLine.Quantity * selectedProduct.Price;
+        }
+
+        var order = Order.Create(orderId, orderItems, totalAmount, OrderStatus.Pending());
+
+        await orderRepository.AddAsync(order, cancellationToken);
+
+        var initPaymentResponse = await balanceServiceClient.InitPayment(
+            orderMapper.MapToInitPaymentRequest(orderId, Money.Create(totalAmount).AmountInt), cancellationToken);
+        
+        if (!initPaymentResponse.Success || initPaymentResponse.Data?.PreOrder == null)
+        {
+            logger.LogError("Failed to reserve funds for OrderId {OrderId}: {Message}", orderId, initPaymentResponse.Message);
+
+            throw new InitPaymentException(initPaymentResponse.Message);
+        }
+
+        if (initPaymentResponse.Data.UpdatedBalance.AvailableBalance < totalAmount)
+        {
+            logger.LogWarning(
+                "Not enough balance for OrderId {OrderId}. Required: {Required}, Available: {Available}",
+                orderId, totalAmount, initPaymentResponse.Data.UpdatedBalance.AvailableBalance);
+
+            throw new BalanceException(!string.IsNullOrEmpty(initPaymentResponse.Message)
+                ? initPaymentResponse.Message
+                : "Insufficient balance");
+        }
+        
+        await unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

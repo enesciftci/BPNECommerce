@@ -2,11 +2,11 @@ namespace BPN.ECommerce.Infrastructure.Services.Balance.Responses;
 
 public class GetProductsServiceResponse
 {
-    public List<Data> Data { get; set; }
+    public List<ProductData> Data { get; set; }
     public bool Success { get; set; }
 }
 
-public class Data
+public class ProductData
 {
     public string Id { get; set; }
     public string Name { get; set; }
