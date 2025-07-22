@@ -11,10 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\Balance\Requests\" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.18" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
     </ItemGroup>

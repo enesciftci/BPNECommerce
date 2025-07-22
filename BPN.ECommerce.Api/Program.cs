@@ -1,15 +1,20 @@
 using BPN.ECommerce.Api.EndpointMappings;
 using BPN.ECommerce.Infrastructure.ServiceRegistrations;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.RegisterHttpClient(builder.Configuration);
 builder.Services.RegisterServices();
+
 
 var app = builder.Build();
 

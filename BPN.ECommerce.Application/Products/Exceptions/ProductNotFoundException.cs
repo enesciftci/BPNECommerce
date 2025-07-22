@@ -4,8 +4,7 @@ namespace BPN.ECommerce.Application.Products.Exceptions;
 
 public class ProductNotFoundException : CustomException
 {
-    public ProductNotFoundException(string description)
+    public ProductNotFoundException(string description) : base(description)
     {
-        Description = description;
     }
 }

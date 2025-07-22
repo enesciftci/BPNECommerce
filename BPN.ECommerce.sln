@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPN.ECommerce.Application",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPN.ECommerce.Infrastructure", "BPN.ECommerce.Infrastructure\BPN.ECommerce.Infrastructure.csproj", "{B45597DF-BBD0-4F6C-8340-702A83BB484B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPN.ECommerce.UnitTests", "BPN.ECommerce.UnitTests\BPN.ECommerce.UnitTests.csproj", "{69194C44-4D62-47D4-871B-C69935323F1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B45597DF-BBD0-4F6C-8340-702A83BB484B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B45597DF-BBD0-4F6C-8340-702A83BB484B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B45597DF-BBD0-4F6C-8340-702A83BB484B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69194C44-4D62-47D4-871B-C69935323F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69194C44-4D62-47D4-871B-C69935323F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69194C44-4D62-47D4-871B-C69935323F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69194C44-4D62-47D4-871B-C69935323F1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
