@@ -27,7 +27,7 @@
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests.Handle_Should_CreateOrder_Successfully&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=23720b08_002Dcefa_002D47f1_002Dbd2a_002Dbe80907d5c87/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CompleteOrderCommandHandlerTests #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=23720b08_002Dcefa_002D47f1_002Dbd2a_002Dbe80907d5c87/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CompleteOrderCommandHandlerTests #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CompleteOrderCommandHandlerTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
@@ -110,6 +110,11 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bb6b8c2e_002D5801_002D4071_002D99c7_002D3bc7eacdd65c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateOrderCommandHandlerTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=da767cb8_002D2338_002D4601_002D8bc7_002D48fffbcd84f6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="BalanceServiceClientTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::0935A822-E999-4A2C-8E20-BDE79F02492D::net8.0::BPN.ECommerce.IntegrationTests.BalanceServiceClientTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ef751adc_002D0049_002D4a56_002D8bdc_002D58a361b8f996/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_Should_Throw_When_Lock_Not_Acquired #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;

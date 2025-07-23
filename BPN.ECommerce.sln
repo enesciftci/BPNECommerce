@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.dockerignore = .dockerignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPN.ECommerce.IntegrationTests", "BPN.ECommerce.IntegrationTests\BPN.ECommerce.IntegrationTests.csproj", "{0935A822-E999-4A2C-8E20-BDE79F02492D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +45,9 @@ Global
 		{69194C44-4D62-47D4-871B-C69935323F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69194C44-4D62-47D4-871B-C69935323F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69194C44-4D62-47D4-871B-C69935323F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0935A822-E999-4A2C-8E20-BDE79F02492D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0935A822-E999-4A2C-8E20-BDE79F02492D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0935A822-E999-4A2C-8E20-BDE79F02492D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0935A822-E999-4A2C-8E20-BDE79F02492D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
