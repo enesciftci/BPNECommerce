@@ -16,6 +16,11 @@ public class CompleteOrderCommand : IRequest
     {
         Input = input;
     }
+
+    public static CompleteOrderCommand Create(CompleteOrderInput input)
+    {
+        return new CompleteOrderCommand(input);
+    }
 }
 
 public class CompleteOrderCommandHandler(

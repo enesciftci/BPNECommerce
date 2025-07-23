@@ -1,4 +1,6 @@
 using BPN.ECommerce.Api.EndpointHandlers;
+using BPN.ECommerce.Api.Filters;
+using BPN.ECommerce.Application.Orders.Inputs;
 
 namespace BPN.ECommerce.Api.EndpointMappings;
 
@@ -8,8 +10,14 @@ public static class OrderEndpointMappings
     {
         var orderEndpoints = endpointRouteBuilder.MapGroup("/orders");
 
-        orderEndpoints.MapPost("", OrderHandlers.CreateOrder)
+        orderEndpoints.MapPost("create", OrderHandlers.CreateOrder)
             .WithName("CreateOrder")
-            .WithOpenApi();
+            .WithOpenApi()
+            .AddEndpointFilter<ValidationFilter<CreateOrderInput>>();
+
+        orderEndpoints.MapPost("complete", OrderHandlers.CompleteOrder)
+            .WithName("CompleteOrder")
+            .WithOpenApi()
+            .AddEndpointFilter<ValidationFilter<CompleteOrderInput>>();
     }
 }

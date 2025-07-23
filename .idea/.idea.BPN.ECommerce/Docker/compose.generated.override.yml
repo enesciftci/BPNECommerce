@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.8"
+services:
+  api:
+    build:
+      context: "/Users/enes.ciftci/Desktop/personalApps/BPN.ECommerce"
+      dockerfile: "Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/BPN.ECommerce.Api.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "bpn.ecommerce.api:dev"
+    ports: []
+    volumes:
+    - "/Users/enes.ciftci/Desktop/personalApps/BPN.ECommerce/BPN.ECommerce.Api:/app:rw"
+    - "/Users/enes.ciftci/Desktop/personalApps/BPN.ECommerce:/src:rw"
+    - "/Users/enes.ciftci/.nuget/packages:/home/app/.nuget/packages"
+    working_dir: "/app"

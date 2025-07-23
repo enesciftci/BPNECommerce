@@ -1,14 +1,25 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AAssert_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fd6eacc30f73c491c94ae7625a65c78ac77a00_003Fbd_003Fac15af6e_003FAssert_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ADbContext_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F79618d88db254d9aa7c84c04b8e7252826ae38_003F37_003F99c9b2bb_003FDbContext_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AServiceProvider_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F7d81b2d4f22bee75e5438c707251ae43cb0974c207db91ffc159118c84b4eb9_003FServiceProvider_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=135e19d6_002D8136_002D476a_002Da9c8_002Dea532248125f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_AuthPaymentFails_ThrowsAuthPaymentException_AndPublishesEvent" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CompleteOrderCommandHandlerTests.Handle_AuthPaymentFails_ThrowsAuthPaymentException_AndPublishesEvent&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2005d88c_002Dc35b_002D4ca2_002Dbc37_002D0ed146e38224/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Handle_AuthPaymentSuccess_UpdatesOrder_AndSavesChanges #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1a8a8568_002Dd8fc_002D4ce9_002D9649_002De465067bfdf6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateOrderCommandHandlerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2005d88c_002Dc35b_002D4ca2_002Dbc37_002D0ed146e38224/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_AuthPaymentSuccess_UpdatesOrder_AndSavesChanges #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CompleteOrderCommandHandlerTests.Handle_AuthPaymentSuccess_UpdatesOrder_AndSavesChanges&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=21f5462c_002Dbb0a_002D48b1_002Dbf65_002D1c3b25afc181/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_Should_CreateOrder_Successfully" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests.Handle_Should_CreateOrder_Successfully&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=24e57dd2_002D66f1_002D4277_002D8b6e_002D1234f5c2e0c4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CompleteOrderCommandHandlerTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
@@ -19,6 +30,16 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2c00b3e9_002Ddf9e_002D4acb_002Dadc2_002D4e1d92793fc5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CompleteOrderCommandHandlerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CompleteOrderCommandHandlerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=357b611b_002D22b3_002D4abd_002Dbbcd_002Db27989904cfa/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateOrderCommandHandlerTests #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4be5b820_002D0cc7_002D4588_002D9df2_002Da914392abec7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_Should_Throw_When_Product_Not_Found" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests.Handle_Should_Throw_When_Product_Not_Found&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5fd7d46f_002D626c_002D40e7_002Dbae9_002D444bcccf5058/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_AuthPaymentFails_ThrowsAuthPaymentException_AndPublishesEvent #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
@@ -41,6 +62,11 @@
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CompleteOrderCommandHandlerTests.Handle_AuthPaymentSuccess_UpdatesOrder_AndSavesChanges&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=78029c3c_002D31de_002D47be_002Da4d3_002Dddaf65ea6656/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_Should_CreateOrder_Successfully #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests.Handle_Should_CreateOrder_Successfully&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=94f67fc5_002D26f8_002D41d0_002Db11e_002Dd5c48aa59388/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_AuthPaymentSuccess_UpdatesOrder_AndSavesChanges #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CompleteOrderCommandHandlerTests.Handle_AuthPaymentSuccess_UpdatesOrder_AndSavesChanges&lt;/TestId&gt;
@@ -49,5 +75,25 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=aa2fbbe3_002D4c78_002D4f23_002D866d_002Dc7fd2cebfb4b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CompleteOrderCommandHandlerTests #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CompleteOrderCommandHandlerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ac22c197_002D82b6_002D4094_002D9f5e_002D3096f9c3e292/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreateOrderCommandHandlerTests #6" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bb6b8c2e_002D5801_002D4071_002D99c7_002D3bc7eacdd65c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateOrderCommandHandlerTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f77984fd_002D9ab4_002D47f8_002Da6f4_002D756f9364209d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateOrderCommandHandlerTests #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ff5160ac_002Dea6d_002D4335_002D93ce_002Df9a8136a8636/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateOrderCommandHandlerTests #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::69194C44-4D62-47D4-871B-C69935323F1E::net8.0::BPN.ECommerce.UnitTests.Orders.Commands.CreateOrderCommandHandlerTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

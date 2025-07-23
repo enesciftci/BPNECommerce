@@ -13,6 +13,11 @@ namespace BPN.ECommerce.Application.Orders.Commands.CreateOrder;
 public sealed class CreateOrderCommand(CreateOrderInput input) : IRequest
 {
     public CreateOrderInput Input { get; set; } = input;
+
+    public static CreateOrderCommand Create(CreateOrderInput input)
+    {
+        return new CreateOrderCommand(input);
+    }
 }
 
 public sealed class CreateOrderCommandHandler(
@@ -26,7 +31,7 @@ public sealed class CreateOrderCommandHandler(
     public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
         var orderItems = new List<OrderItem>();
-        var orderId = Guid.NewGuid().ToString();
+        var orderId = request.Input.OrderId;
         decimal totalAmount = decimal.Zero;
         
         foreach (var orderLine in request.Input.Items)
@@ -48,7 +53,7 @@ public sealed class CreateOrderCommandHandler(
         await orderRepository.AddAsync(order, cancellationToken);
 
         var initPaymentResponse = await balanceServiceClient.InitPayment(
-            orderMapper.MapToInitPaymentRequest(orderId, Money.Create(totalAmount).AmountInt), cancellationToken);
+            orderMapper.MapToInitPaymentRequest(orderId, totalAmount), cancellationToken);
         
         if (!initPaymentResponse.Success || initPaymentResponse.Data?.PreOrder == null)
         {

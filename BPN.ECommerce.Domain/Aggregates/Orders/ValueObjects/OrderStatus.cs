@@ -8,8 +8,13 @@ public class OrderStatus : SimpleValueObject<string>
     private const string PENDING = "Pending";
     private const string CANCELLED = "Cancelled";
     
-    private OrderStatus(string value) : base(value)
+    internal OrderStatus(string value) : base(value)
     {
+    }
+
+    private OrderStatus()
+    {
+        
     }
     
     public static OrderStatus Approved()

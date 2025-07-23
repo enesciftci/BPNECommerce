@@ -22,6 +22,11 @@ public class Order : BaseEntity
         CancelledAt = cancelledAt;
     }
 
+    private Order()
+    {
+        
+    }
+
     public static Order Create(string orderId, List<OrderItem> items, decimal amount, OrderStatus status)
     {
         return new Order(orderId, items, amount, status, null, null);

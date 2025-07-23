@@ -44,15 +44,19 @@ public class BalanceServiceMapper : IBalanceServiceMapper
 
     public InitPaymentResponse MapToInitPaymentResponse(InitPaymentServiceResponse response)
     {
-        return new InitPaymentResponse()
+        var initPaymentResponse = new InitPaymentResponse()
         {
             Success = response.Success,
             Message = response.Message,
-            Data = new InitPaymentData()
+        };
+
+        if (response.Data != null)
+        {
+            initPaymentResponse.Data = new InitPaymentData()
             {
                 PreOrder = new PreOrder()
                 {
-                    Amount = Money.Create(response.Data.PreOrder.Amount).Amount,
+                    Amount = response.Data.PreOrder.Amount,
                     Status = response.Data.PreOrder.Status,
                     Timestamp = response.Data.PreOrder.Timestamp,
                     OrderId = response.Data.PreOrder.OrderId,
@@ -60,28 +64,34 @@ public class BalanceServiceMapper : IBalanceServiceMapper
                 UpdatedBalance = new UpdatedBalance()
                 {
                     Currency = response.Data.UpdatedBalance.Currency,
-                    AvailableBalance = Money.Create(response.Data.UpdatedBalance.AvailableBalance).Amount,
-                    BlockedBalance = Money.Create(response.Data.UpdatedBalance.BlockedBalance).Amount,
+                    AvailableBalance = response.Data.UpdatedBalance.AvailableBalance,
+                    BlockedBalance = response.Data.UpdatedBalance.BlockedBalance,
                     LastUpdated = response.Data.UpdatedBalance.LastUpdated,
-                    TotalBalance = Money.Create(response.Data.UpdatedBalance.TotalBalance).Amount,
+                    TotalBalance = response.Data.UpdatedBalance.TotalBalance,
                     UserId = response.Data.UpdatedBalance.UserId
                 }
-            }
-        };
+            };
+        }
+        
+        return initPaymentResponse;
     }
 
     public AuthPaymentResponse MapToAuthPaymentResponse(AuthPaymentServiceResponse response)
     {
-        return new AuthPaymentResponse()
+        var authPaymentResponse = new AuthPaymentResponse()
         {
             Success = response.Success,
             Message = response.Message,
             Error = response.Error,
-            Data = new AuthPaymentData()
+        };
+
+        if (response.Data != null)
+        {
+            authPaymentResponse.Data = new AuthPaymentData()
             {
                 Order = new Order()
                 {
-                    Amount = Money.Create(response.Data.Order.Amount).Amount,
+                    Amount = response.Data.Order.Amount,
                     Status = response.Data.Order.Status,
                     Timestamp = response.Data.Order.Timestamp,
                     OrderId = response.Data.Order.OrderId,
@@ -90,28 +100,33 @@ public class BalanceServiceMapper : IBalanceServiceMapper
                 UpdatedBalance = new UpdatedBalance()
                 {
                     Currency = response.Data.UpdatedBalance.Currency,
-                    AvailableBalance = Money.Create(response.Data.UpdatedBalance.AvailableBalance).Amount,
-                    BlockedBalance = Money.Create(response.Data.UpdatedBalance.BlockedBalance).Amount,
+                    AvailableBalance = response.Data.UpdatedBalance.AvailableBalance,
+                    BlockedBalance = response.Data.UpdatedBalance.BlockedBalance,
                     LastUpdated = response.Data.UpdatedBalance.LastUpdated,
-                    TotalBalance = Money.Create(response.Data.UpdatedBalance.TotalBalance).Amount,
+                    TotalBalance = response.Data.UpdatedBalance.TotalBalance,
                     UserId = response.Data.UpdatedBalance.UserId
                 }
-            }
-        };
+            };
+        }
+
+        return authPaymentResponse;
     }
-    
+
     public VoidPaymentResponse MapToVoidPaymentResponse(VoidPaymentServiceResponse response)
     {
-        return new VoidPaymentResponse()
+        var voidPaymentResponse = new VoidPaymentResponse()
         {
             Success = response.Success,
             Message = response.Message,
             Error = response.Error,
-            Data = new VoidPaymentData()
+        };
+        if (response.Data != null)
+        {
+            voidPaymentResponse.Data = new VoidPaymentData()
             {
                 Order = new Order()
                 {
-                    Amount = Money.Create(response.Data.Order.Amount).Amount,
+                    Amount = response.Data.Order.Amount,
                     Status = response.Data.Order.Status,
                     Timestamp = response.Data.Order.Timestamp,
                     OrderId = response.Data.Order.OrderId,
@@ -120,13 +135,14 @@ public class BalanceServiceMapper : IBalanceServiceMapper
                 UpdatedBalance = new UpdatedBalance()
                 {
                     Currency = response.Data.UpdatedBalance.Currency,
-                    AvailableBalance = Money.Create(response.Data.UpdatedBalance.AvailableBalance).Amount,
-                    BlockedBalance = Money.Create(response.Data.UpdatedBalance.BlockedBalance).Amount,
+                    AvailableBalance = response.Data.UpdatedBalance.AvailableBalance,
+                    BlockedBalance = response.Data.UpdatedBalance.BlockedBalance,
                     LastUpdated = response.Data.UpdatedBalance.LastUpdated,
-                    TotalBalance = Money.Create(response.Data.UpdatedBalance.TotalBalance).Amount,
+                    TotalBalance = response.Data.UpdatedBalance.TotalBalance,
                     UserId = response.Data.UpdatedBalance.UserId
                 }
-            }
-        };
+            };
+        }
+        return voidPaymentResponse;
     }
 }

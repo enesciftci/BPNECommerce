@@ -5,14 +5,14 @@ namespace BPN.ECommerce.Application.Orders.Mapper;
 
 public interface IOrderMapper
 {
-    InitPaymentRequest MapToInitPaymentRequest(string orderId, int amount);
+    InitPaymentRequest MapToInitPaymentRequest(string orderId, decimal amount);
     AuthPaymentRequest MapToAuthPaymentRequest(string orderId);
     VoidPaymentRequest MapToVoidPaymentRequest(string orderId);
     VoidPaymentNotification MapToVoidPaymentNotification(string orderId);
 }
 public class OrderMapper : IOrderMapper
 {
-    public InitPaymentRequest MapToInitPaymentRequest(string orderId, int amount)
+    public InitPaymentRequest MapToInitPaymentRequest(string orderId, decimal amount)
     {
         return new InitPaymentRequest()
         {

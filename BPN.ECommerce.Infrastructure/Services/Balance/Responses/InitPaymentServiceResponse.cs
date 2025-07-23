@@ -16,7 +16,7 @@ public class InitPaymentData
 public class PreOrder
 {
     public string OrderId { get; set; }
-    public int Amount { get; set; }
+    public decimal Amount { get; set; }
     public DateTime Timestamp { get; set; }
     public string Status { get; set; }
 }

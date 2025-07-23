@@ -1,7 +1,11 @@
+using System.Text.Json.Serialization;
+
 namespace BPN.ECommerce.Application.Services.Balance.Requests;
 
 public class InitPaymentRequest
 {
-    public int Amount { get; set; }
+    [JsonPropertyName("amount")]
+    public decimal Amount { get; set; }
+    [JsonPropertyName("orderId")]
     public string OrderId { get; set; }
 }
