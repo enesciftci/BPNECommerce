@@ -1,26 +1,23 @@
 using BPN.ECommerce.Application;
+using BPN.ECommerce.Application.Common;
 using BPN.ECommerce.Application.Orders;
 using BPN.ECommerce.Application.Orders.Notifications.VoidPayment;
 using BPN.ECommerce.Application.Services.Balance.Requests;
 using BPN.ECommerce.Application.Services.Balance.Responses;
 using BPN.ECommerce.Domain.Aggregates.Orders.Entities;
 using Order = BPN.ECommerce.Domain.Aggregates.Orders.Entities.Order;
-
-namespace BPN.ECommerce.UnitTests.Orders.Commands;
-
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using BPN.ECommerce.Application.Orders.Commands.CompleteOrder;
 using BPN.ECommerce.Application.Orders.Exceptions;
 using BPN.ECommerce.Application.Orders.Inputs;
 using BPN.ECommerce.Application.Orders.Mapper;
-using Application.Services.Balance;
+using BPN.ECommerce.Application.Services.Balance;
+using BPN.ECommerce.Application.Services.Redis;
 using BPN.ECommerce.Domain.Aggregates.Orders.ValueObjects;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
-using NUnit.Framework;
+
+namespace BPN.ECommerce.UnitTests.Orders.Commands;
 
 [TestFixture]
 public class CompleteOrderCommandHandlerTests
@@ -31,7 +28,8 @@ public class CompleteOrderCommandHandlerTests
     private Mock<IOrderRepository> _orderRepoMock;
     private Mock<IMediator> _mediatorMock;
     private Mock<ILogger<CompleteOrderCommandHandler>> _loggerMock;
-
+    private Mock<IRedisServiceClient> _redisMock = null!;
+    
     private CompleteOrderCommandHandler _handler;
 
     [SetUp]
@@ -43,6 +41,7 @@ public class CompleteOrderCommandHandlerTests
         _orderRepoMock = new Mock<IOrderRepository>();
         _mediatorMock = new Mock<IMediator>();
         _loggerMock = new Mock<ILogger<CompleteOrderCommandHandler>>();
+        _redisMock = new Mock<IRedisServiceClient>();
 
         _handler = new CompleteOrderCommandHandler(
             _unitOfWorkMock.Object,
@@ -50,7 +49,8 @@ public class CompleteOrderCommandHandlerTests
             _orderMapperMock.Object,
             _orderRepoMock.Object,
             _mediatorMock.Object,
-            _loggerMock.Object
+            _loggerMock.Object,
+            _redisMock.Object
         );
     }
 
@@ -62,6 +62,8 @@ public class CompleteOrderCommandHandlerTests
         var input = new CompleteOrderInput { OrderId = orderId };
         var command = new CompleteOrderCommand(input);
 
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync(Mock.Of<IDisposable>());
         _orderRepoMock.Setup(r => r.GetByOrderId(orderId, It.IsAny<CancellationToken>()))
                       .ReturnsAsync((Order)null!);
 
@@ -80,6 +82,9 @@ public class CompleteOrderCommandHandlerTests
 
         var fakeOrder = Order.Create(orderId, new List<OrderItem>(), 100, OrderStatus.Pending());
 
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync(Mock.Of<IDisposable>());
+        
         _orderRepoMock.Setup(r => r.GetByOrderId(orderId, It.IsAny<CancellationToken>()))
                       .ReturnsAsync(fakeOrder);
 
@@ -117,6 +122,8 @@ public class CompleteOrderCommandHandlerTests
 
         var completedAt = DateTime.UtcNow;
 
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync(Mock.Of<IDisposable>());
         _orderRepoMock.Setup(r => r.GetByOrderId(orderId, It.IsAny<CancellationToken>()))
                       .ReturnsAsync(fakeOrder);
 
@@ -140,5 +147,23 @@ public class CompleteOrderCommandHandlerTests
         Assert.That(fakeOrder.Status, Is.EqualTo(OrderStatus.Approved()));
         Assert.That(fakeOrder.CompletedAt, Is.EqualTo(completedAt));
         _unitOfWorkMock.Verify(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+    }
+    
+    [Test]
+    public void Handle_Should_Throw_When_Lock_Not_Acquired()
+    {
+        // Arrange
+        var input = new CompleteOrderInput()
+        {
+            OrderId = "order-lock-fail"
+        };
+
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync((IDisposable?)null);
+
+        // Act & Assert
+        var ex = Assert.ThrowsAsync<LockException>(() =>
+            _handler.Handle(CompleteOrderCommand.Create(input), CancellationToken.None));
+        Assert.That(ex!.Message, Is.EqualTo("Failed to acquire lock"));
     }
 }

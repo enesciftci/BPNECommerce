@@ -1,4 +1,5 @@
 using BPN.ECommerce.Application;
+using BPN.ECommerce.Application.Common;
 using BPN.ECommerce.Application.Orders;
 using BPN.ECommerce.Application.Orders.Commands.CreateOrder;
 using BPN.ECommerce.Application.Orders.Exceptions;
@@ -8,6 +9,7 @@ using BPN.ECommerce.Application.Products.Exceptions;
 using BPN.ECommerce.Application.Services.Balance;
 using BPN.ECommerce.Application.Services.Balance.Requests;
 using BPN.ECommerce.Application.Services.Balance.Responses;
+using BPN.ECommerce.Application.Services.Redis;
 using Order = BPN.ECommerce.Domain.Aggregates.Orders.Entities.Order;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -22,6 +24,7 @@ public class CreateOrderCommandHandlerTests
     private Mock<IUnitOfWork> _unitOfWorkMock = null!;
     private Mock<IOrderMapper> _orderMapperMock = null!;
     private Mock<ILogger<CreateOrderCommandHandler>> _loggerMock = null!;
+    private Mock<IRedisServiceClient> _redisMock = null!;
     private CreateOrderCommandHandler _handler = null!;
 
     [SetUp]
@@ -32,13 +35,15 @@ public class CreateOrderCommandHandlerTests
         _unitOfWorkMock = new Mock<IUnitOfWork>();
         _orderMapperMock = new Mock<IOrderMapper>();
         _loggerMock = new Mock<ILogger<CreateOrderCommandHandler>>();
+        _redisMock = new Mock<IRedisServiceClient>();
 
         _handler = new CreateOrderCommandHandler(
             _balanceServiceMock.Object,
             _orderRepositoryMock.Object,
             _unitOfWorkMock.Object,
             _orderMapperMock.Object,
-            _loggerMock.Object
+            _loggerMock.Object,
+            _redisMock.Object
         );
     }
 
@@ -70,6 +75,9 @@ public class CreateOrderCommandHandlerTests
             }
         };
 
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync(Mock.Of<IDisposable>());
+        
         _balanceServiceMock.Setup(x => x.GetProducts())
             .ReturnsAsync(new GetProductsResponse() { Data = products });
 
@@ -110,6 +118,8 @@ public class CreateOrderCommandHandlerTests
             }
         };
 
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync(Mock.Of<IDisposable>());
         _balanceServiceMock.Setup(x => x.GetProducts())
             .ReturnsAsync(new GetProductsResponse() { Data = new List<ProductDto>() });
 
@@ -152,6 +162,8 @@ public class CreateOrderCommandHandlerTests
         _orderMapperMock.Setup(x => x.MapToInitPaymentRequest(It.IsAny<string>(), It.IsAny<decimal>()))
             .Returns(new InitPaymentRequest());
 
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync(Mock.Of<IDisposable>());
         // Act & Assert
         var ex = Assert.ThrowsAsync<InitPaymentException>(() =>
             _handler.Handle(CreateOrderCommand.Create(input), CancellationToken.None));
@@ -186,6 +198,8 @@ public class CreateOrderCommandHandlerTests
             }
         };
 
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync(Mock.Of<IDisposable>());
         _balanceServiceMock.Setup(x => x.GetProducts()).ReturnsAsync(new GetProductsResponse() { Data = products });
         _balanceServiceMock.Setup(x => x.InitPayment(It.IsAny<InitPaymentRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(response);
@@ -196,5 +210,27 @@ public class CreateOrderCommandHandlerTests
         // Act & Assert
         Assert.ThrowsAsync<BalanceException>(() =>
             _handler.Handle(CreateOrderCommand.Create(input), CancellationToken.None));
+    }
+    
+    [Test]
+    public void Handle_Should_Throw_When_Lock_Not_Acquired()
+    {
+        // Arrange
+        var input = new CreateOrderInput
+        {
+            OrderId = "order-lock-fail",
+            Items = new List<OrderLine>
+            {
+                new("p1", 1)
+            }
+        };
+
+        _redisMock.Setup(x => x.AcquireLockAsync(It.IsAny<string>()))
+            .ReturnsAsync((IDisposable?)null);
+
+        // Act & Assert
+        var ex = Assert.ThrowsAsync<LockException>(() =>
+            _handler.Handle(CreateOrderCommand.Create(input), CancellationToken.None));
+        Assert.That(ex!.Message, Is.EqualTo("Failed to acquire lock"));
     }
 }

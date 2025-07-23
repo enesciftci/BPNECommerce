@@ -1,7 +1,9 @@
+using BPN.ECommerce.Application.Common;
 using BPN.ECommerce.Application.Orders.Exceptions;
 using BPN.ECommerce.Application.Orders.Inputs;
 using BPN.ECommerce.Application.Orders.Mapper;
 using BPN.ECommerce.Application.Services.Balance;
+using BPN.ECommerce.Application.Services.Redis;
 using BPN.ECommerce.Domain.Aggregates.Orders.ValueObjects;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -29,40 +31,49 @@ public class CompleteOrderCommandHandler(
     IOrderMapper orderMapper,
     IOrderRepository orderRepository,
     IMediator mediator,
-    ILogger<CompleteOrderCommandHandler> logger)
+    ILogger<CompleteOrderCommandHandler> logger,
+    IRedisServiceClient redisServiceClient)
     : IRequestHandler<CompleteOrderCommand>
 {
     public async Task Handle(CompleteOrderCommand request, CancellationToken cancellationToken)
     {
-       var preOrder = await orderRepository.GetByOrderId(request.Input.OrderId, cancellationToken);
+        using var senderLock =
+            await redisServiceClient.AcquireLockAsync(request.Input.OrderId).ConfigureAwait(false);
 
-       if (preOrder == null)
-       {
-           throw new PreOrderNotFoundException("Pre order not found");
-       }
-       
-       var authRequest = orderMapper.MapToAuthPaymentRequest(request.Input.OrderId);
-       var authPaymentResponse = await balanceService.AuthPayment(authRequest, cancellationToken);
-       
-       if (!authPaymentResponse.Success)
-       {
-           logger.LogWarning("Payment failed for OrderId: {OrderId}. Reason: {Reason}",
-               request.Input.OrderId, authPaymentResponse.Message);
-           
-           var voidPaymentNotification = orderMapper.MapToVoidPaymentNotification(request.Input.OrderId);
-           
-           await mediator.Publish(voidPaymentNotification, cancellationToken);
-           
-           throw new AuthPaymentException(authPaymentResponse.Message);
-       }
-       
-       if (authPaymentResponse.Data?.Order is not null)
-       {
-           var completedOrder = authPaymentResponse.Data.Order;
-           preOrder.SetStatus(OrderStatus.Approved());
-           preOrder.SetCompletedAt(completedOrder.CompletedAt.Value);
-          
-           await unitOfWork.SaveChangesAsync(cancellationToken);
-       }
+        if (senderLock is null)
+        {
+            throw new LockException("Failed to acquire lock");
+        }
+
+        var preOrder = await orderRepository.GetByOrderId(request.Input.OrderId, cancellationToken);
+
+        if (preOrder == null)
+        {
+            throw new PreOrderNotFoundException("Pre order not found");
+        }
+
+        var authRequest = orderMapper.MapToAuthPaymentRequest(request.Input.OrderId);
+        var authPaymentResponse = await balanceService.AuthPayment(authRequest, cancellationToken);
+
+        if (!authPaymentResponse.Success)
+        {
+            logger.LogWarning("Payment failed for OrderId: {OrderId}. Reason: {Reason}",
+                request.Input.OrderId, authPaymentResponse.Message);
+
+            var voidPaymentNotification = orderMapper.MapToVoidPaymentNotification(request.Input.OrderId);
+
+            await mediator.Publish(voidPaymentNotification, cancellationToken);
+
+            throw new AuthPaymentException(authPaymentResponse.Message);
+        }
+
+        if (authPaymentResponse.Data?.Order is not null)
+        {
+            var completedOrder = authPaymentResponse.Data.Order;
+            preOrder.SetStatus(OrderStatus.Approved());
+            preOrder.SetCompletedAt(completedOrder.CompletedAt.Value);
+
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+        }
     }
 }

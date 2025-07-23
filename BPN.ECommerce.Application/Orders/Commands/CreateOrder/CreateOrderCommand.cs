@@ -1,8 +1,10 @@
+using BPN.ECommerce.Application.Common;
 using BPN.ECommerce.Application.Orders.Exceptions;
 using BPN.ECommerce.Application.Orders.Inputs;
 using BPN.ECommerce.Application.Orders.Mapper;
 using BPN.ECommerce.Application.Products.Exceptions;
 using BPN.ECommerce.Application.Services.Balance;
+using BPN.ECommerce.Application.Services.Redis;
 using BPN.ECommerce.Domain.Aggregates.Orders.Entities;
 using BPN.ECommerce.Domain.Aggregates.Orders.ValueObjects;
 using MediatR;
@@ -25,11 +27,20 @@ public sealed class CreateOrderCommandHandler(
     IOrderRepository orderRepository,
     IUnitOfWork unitOfWork,
     IOrderMapper orderMapper,
-    ILogger<CreateOrderCommandHandler> logger)
+    ILogger<CreateOrderCommandHandler> logger,
+    IRedisServiceClient redisServiceClient)
     : IRequestHandler<CreateOrderCommand>
 {
     public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
+        using var senderLock =
+            await redisServiceClient.AcquireLockAsync(request.Input.OrderId).ConfigureAwait(false);
+       
+        if (senderLock is null)
+        {
+            throw new LockException("Failed to acquire lock");
+        }
+        
         var orderItems = new List<OrderItem>();
         var orderId = request.Input.OrderId;
         decimal totalAmount = decimal.Zero;
